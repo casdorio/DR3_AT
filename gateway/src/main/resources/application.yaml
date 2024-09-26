@@ -6,9 +6,16 @@ spring:
     gateway:
       routes:
         - id: status
-          uri: lb://status-service
+          uri: lb://STATUS-SERVICE
           predicates:
             - Path=/status/**
+          filters:
+            - StripPrefix=1
+
+        - id: veiculos
+          uri: lb://CATALOGO-VEICULOS-SERVICE
+          predicates:
+            - Path=/veiculos/**
 
 eureka:
   client:
