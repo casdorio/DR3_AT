@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: status
+          uri: lb://status-service
+          predicates:
+            - Path=/status/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+
+server:
+  port: 8089
