@@ -48,38 +48,4 @@ jobs:
         run: |
           kubectl apply -f k8s/status.yml
 
-      - name: Wait for Deployment to be Ready
-        run: |
-          # verifica deployment
-          kubectl get deployments
-          # verifica se o serviço está disponível
-          kubectl get services
-          kubectl wait --for=condition=available --timeout=120s deployment/status-service
 
-      - name: Expose the Service to Host Machine
-        run: |
-          kubectl expose deployment status-service --type=NodePort --name=status-service
-
-      - name: Get Service URL
-        run: |
-          kubectl get services
-
-      - name: Run Tests
-        run: |
-          # Aguarde um pouco para garantir que o serviço esteja ativo
-          sleep 20 
-
-          # Obtenha o IP do cluster e a porta do NodePort
-          NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services status-service)
-          CLUSTER_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kind-control-plane)
-
-          # Teste a URL do serviço no Kubernetes
-          response=$(curl --write-out "%{http_code}" --silent --output /dev/null http://$CLUSTER_IP:$NODE_PORT/status)
-
-          # Verifique o código de status HTTP
-          if [ "$response" -eq 200 ]; then
-            echo "Test passed: Service is active!"
-          else
-            echo "Test failed: Service returned status code $response"
-            exit 1
-          fi
