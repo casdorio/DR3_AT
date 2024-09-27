@@ -47,22 +47,26 @@ jobs:
         run: |
           kind load docker-image status-service:latest
 
-      - name: Deploy to KinD Kubernetes
-        run: |
-          kubectl apply -f k8s/status.yml
-
-          - name: Run Tests
+          - name: Deploy to Kubernetes
           run: |
-            # Aguarde um pouco para garantir que o serviço esteja ativo
-            sleep 10 
-  
-            # Teste a URL do serviço
-            response=$(curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8081/status)
-  
-            # Verifique o código de status HTTP
-            if [ "$response" -eq 200 ]; then
-              echo "Test passed: Service is active!"
-            else
-              echo "Test failed: Service returned status code $response"
-              exit 1
-            fi
+            kubectl apply -f k8s/status.yml
+
+      - name: Run Tests
+        run: |
+          # Aguarde um pouco para garantir que o serviço esteja ativo
+          sleep 10 
+      
+          # Teste a URL do serviço
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8081/status)
+      
+          # Verifique o código de status HTTP
+          if [ "$response" -eq 200 ]; then
+            echo "Test passed: Service is active!"
+          else
+            echo "Test failed: Service returned status code $response"
+            exit 1
+          fi
+        shell: /usr/bin/bash -e {0}
+        env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
+          JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
