@@ -1,0 +1,72 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - k8s
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code from k8s branch
+        uses: actions/checkout@v4
+        with:
+          ref: k8s
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Give execution permission to mvnw
+        run: chmod +x status-service/mvnw
+
+      - name: Build with Maven
+        run: |
+          cd status-service # Navigate to the service directory
+          ./mvnw clean verify # or 'mvn clean verify' if not using the wrapper
+
+      - name: Build Docker image
+        run: |
+          docker build -t status-service:latest ./status-service
+
+      - name: Install KinD
+        run: |
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.16.0/kind-linux-amd64
+          chmod +x ./kind
+          sudo mv ./kind /usr/local/bin/
+
+      - name: Create KinD cluster
+        run: kind create cluster
+
+      - name: Load Docker image into KinD
+        run: |
+          kind load docker-image status-service:latest
+
+      - name: Deploy to KinD Kubernetes
+        run: |
+          kubectl apply -f k8s/status.yml
+
+      - name: Run Tests
+        run: |
+          # Aguarde um pouco para garantir que o serviço esteja ativo
+          sleep 10 
+
+          # Teste a URL do serviço
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8081/status)
+
+          # Verifique o código de status HTTP
+          if [ "$response" -eq 200 ]; then
+            echo "Test passed: Service is active!"
+          else
+            echo "Test failed: Service returned status code $response"
+            exit 1
+          fi
+          shell: /usr/bin/bash -e {0}
+          env:
+            JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
+            JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
