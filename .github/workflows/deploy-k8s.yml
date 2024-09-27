@@ -22,18 +22,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Give execution permission to mvnw
-        run: chmod +x status-service/mvnw
-
-      - name: Build with Maven
-        run: |
-          cd status-service
-          ./mvnw clean package # Gera o JAR
-          
-      - name: Verificar o diretório target
-        run: |
-          cd status-service
-          ls -la target
 
   docker:
     runs-on: ubuntu-latest
