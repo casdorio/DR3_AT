@@ -48,10 +48,10 @@ jobs:
         run: |
           kubectl apply -f k8s/status.yml
 
-          - name: Wait for Deployment to be Ready
-          run: |
-            kubectl wait --for=condition=available --timeout=60s deployment/status-service
-  
+      - name: Wait for Deployment to be Ready
+        run: |
+          kubectl wait --for=condition=available --timeout=60s deployment/status-service
+
       - name: Expose the Service to Host Machine
         run: |
           kubectl expose deployment status-service --type=NodePort --name=status-service
