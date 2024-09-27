@@ -3,7 +3,7 @@ name: CI for Status Service
 on:
   push:
     branches:
-      - k8s
+      - main
   workflow_dispatch:
 
 jobs:
