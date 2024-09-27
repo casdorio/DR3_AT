@@ -37,9 +37,11 @@ jobs:
     needs: status-service-build # Este job precisa do status-service-build
 
     steps:
-      - name: List files
-        run: |
-          ls -R
+      - name: Checkout code from k8s branch
+        uses: actions/checkout@v4
+        with:
+          ref: k8s
+
           
       - name: Build Docker image
         run: |
