@@ -14,6 +14,6 @@ public class StatusController {
     @GetMapping
     public String getStatus() {
         String port = environment.getProperty("local.server.port");
-        return "Service subiu e está ativo! Rodando na porta : " + port;
+        return "teste Service subiu e está ativo! Rodando na porta : " + port;
     }
 }
