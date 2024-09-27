@@ -15,7 +15,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: k8s
-          path: k8s-checkout
 
       - name: Set up JDK
         uses: actions/setup-java@v4
