@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout code from k8s branch
         uses: actions/checkout@v4
+        with:
+          ref: k8s
+          path: k8s-checkout
 
       - name: Set up JDK
         uses: actions/setup-java@v4
