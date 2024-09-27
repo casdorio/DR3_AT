@@ -1,0 +1,53 @@
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ford', 'Mustang', 1967);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Chevrolet', 'Camaro', 1970);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Dodge', 'Charger', 1969);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Volkswagen', 'Beetle', 1972);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Honda', 'Civic', 2005);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Toyota', 'Corolla', 2005);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Nissan', 'Skyline', 1999);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ferrari', 'Testarossa', 1984);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Porsche', '911', 1995);
+
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Tesla', 'Model S', 2020);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('BMW', 'M3', 2001);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Audi', 'A4', 1998);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Mercedes-Benz', 'C-Class', 2015);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Lamborghini', 'Huracan', 2021);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ford', 'F-150', 2019);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Chevrolet', 'Silverado', 2018);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Toyota', 'Tacoma', 2017);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Nissan', 'Altima', 2016);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Jeep', 'Wrangler', 2014);
+
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Mazda', 'Miata', 2004);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ford', 'Explorer', 2013);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Chevrolet', 'Impala', 2012);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Dodge', 'Viper', 2011);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Volkswagen', 'Golf', 2010);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Honda', 'Accord', 2009);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Toyota', 'Camry', 2008);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Nissan', 'Maxima', 2007);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ferrari', 'F40', 1990);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Porsche', 'Cayenne', 2006);
+
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Tesla', 'Model X', 2015);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('BMW', 'X5', 2005);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Audi', 'Q7', 2005);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Mercedes-Benz', 'E-Class', 2009);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Lamborghini', 'Aventador', 2021);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ford', 'Ranger', 2019);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Chevrolet', 'Tahoe', 2018);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Toyota', 'Hilux', 2017);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Nissan', 'Sentra', 2016);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Jeep', 'Grand Cherokee', 2014);
+
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Mazda', 'CX-5', 2004);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ford', 'Fusion', 2013);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Chevrolet', 'Corvette', 2012);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Dodge', 'Durango', 2011);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Volkswagen', 'Passat', 2010);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Honda', 'CR-V', 2009);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Toyota', 'Land Cruiser', 2008);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Nissan', '350Z', 2007);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Ferrari', '488 GTB', 2015);
+INSERT INTO veiculo (marca, modelo, ano) VALUES ('Porsche', 'Panamera', 2006);

@@ -1,0 +1,168 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogo-veiculos-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: catalogo-veiculos-service
+  template:
+    metadata:
+      labels:
+        app: catalogo-veiculos-service
+    spec:
+      containers:
+      - name: catalogo-veiculos-service
+        image: catalogo-veiculos-service:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://postgres:5432/veiculo_db"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "sa"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "sa"
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+        - name: SPRING_JPA_SHOW_SQL
+          value: "true"
+        - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+          value: "org.hibernate.dialect.PostgreSQLDialect"
+        - name: SPRING_JPA_DRIVER_CLASS_NAME
+          value: "org.postgresql.Driver"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogo-veiculos-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: catalogo-veiculos-service
+  template:
+    metadata:
+      labels:
+        app: catalogo-veiculos-service
+    spec:
+      containers:
+      - name: catalogo-veiculos-service
+        image: catalogo-veiculos-service:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://postgres:5432/veiculo_db"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "sa"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "sa"
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+        - name: SPRING_JPA_SHOW_SQL
+          value: "true"
+        - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+          value: "org.hibernate.dialect.PostgreSQLDialect"
+        - name: SPRING_JPA_DRIVER_CLASS_NAME
+          value: "org.postgresql.Driver"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogo-veiculos-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: catalogo-veiculos-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: "veiculo_db"
+        - name: POSTGRES_USER
+          value: "sa"
+        - name: POSTGRES_PASSWORD
+          value: "sa"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: "veiculo_db"
+        - name: POSTGRES_USER
+          value: "sa"
+        - name: POSTGRES_PASSWORD
+          value: "sa"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
