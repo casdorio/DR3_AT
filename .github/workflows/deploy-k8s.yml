@@ -1,0 +1,33 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - k8s
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Build with Maven
+        run: |
+          cd catalogo-veiculos-service # Navegar até o diretório do serviço
+          ./mvnw clean package # Compilar e criar o pacote
+
+      - name: Build Docker image
+        run: |
+          docker build -t catalogo-veiculos-service:latest ./catalogo-veiculos-service
+  
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/catalogo-veiculos.yml
