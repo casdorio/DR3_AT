@@ -21,17 +21,17 @@ jobs:
           distribution: 'adopt'
 
       - name: Dar permissão de execução ao mvnw
-        run: chmod +x catalogo-veiculos-service/mvnw
+        run: chmod +x status-service/mvnw
 
       - name: Build with Maven
         run: |
-          cd catalogo-veiculos-service # Navegar até o diretório do serviço
+          cd status-service # Navegar até o diretório do serviço
           ./mvnw clean verify # ou 'mvn clean verify' se não usar o wrapper
 
       - name: Build Docker image
         run: |
-          docker build -t catalogo-veiculos-service:latest ./catalogo-veiculos-service
+          docker build -t status-service:latest ./status-service
   
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/catalogo-veiculos.yml
+          kubectl apply -f k8s/status.yml
