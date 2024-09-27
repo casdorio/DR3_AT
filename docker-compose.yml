@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: sa
+      POSTGRES_DB: veiculo_db
+    ports:
+      - "5432:5432"
+    networks:
+      - microservice-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  catalogo-veiculos-service:
+    image:  catalogo-veiculos-service:latest
+    container_name: catalogo_veiculos_service
+    build:
+      context: ./catalogo-veiculos-service
+    ports:
+      - "8080:8080"
+    networks:
+      - microservice-network
+    environment:
+      SPRING_APPLICATION_NAME: catalogo-veiculos-service
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/veiculo_db
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: sa
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_DRIVER_CLASS_NAME: org.postgresql.Driver
+    depends_on:
+      - postgres
+
+networks:
+  microservice-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
