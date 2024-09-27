@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Dar permissão de execução ao mvnw
-          run: chmod +x status-service/mvnw
+        run: chmod +x status-service/mvnw
           
       - name: Compilar e Testar
         run: |
