@@ -48,13 +48,29 @@ jobs:
         run: |
           kubectl apply -f k8s/status.yml
 
+          - name: Wait for Deployment to be Ready
+          run: |
+            kubectl wait --for=condition=available --timeout=60s deployment/status-service
+  
+      - name: Expose the Service to Host Machine
+        run: |
+          kubectl expose deployment status-service --type=NodePort --name=status-service
+
+      - name: Get Service URL
+        run: |
+          kubectl get services
+
       - name: Run Tests
         run: |
           # Aguarde um pouco para garantir que o serviço esteja ativo
-          sleep 10 
+          sleep 20 
 
-          # Teste a URL do serviço
-          response=$(curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8081/status)
+          # Obtenha o IP do cluster e a porta do NodePort
+          NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services status-service)
+          CLUSTER_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' kind-control-plane)
+
+          # Teste a URL do serviço no Kubernetes
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null http://$CLUSTER_IP:$NODE_PORT/status)
 
           # Verifique o código de status HTTP
           if [ "$response" -eq 200 ]; then
@@ -63,7 +79,3 @@ jobs:
             echo "Test failed: Service returned status code $response"
             exit 1
           fi
-          shell: /usr/bin/bash -e {0}
-          env:
-            JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
-            JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
