@@ -29,12 +29,18 @@ jobs:
         run: |
           cd status-service # Navigate to the service directory
           ./mvnw clean verify # or 'mvn clean verify' if not using the wrapper
-
+      - name: List files
+        run: |
+          ls -R
   docker:
     runs-on: ubuntu-latest
     needs: status-service-build # Este job precisa do status-service-build
 
     steps:
+      - name: List files
+        run: |
+          ls -R
+          
       - name: Build Docker image
         run: |
           docker build -t status-service:latest ./status-service
