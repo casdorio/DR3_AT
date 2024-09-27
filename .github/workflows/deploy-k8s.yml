@@ -26,7 +26,7 @@ jobs:
       - name: Build with Maven
         run: |
           cd catalogo-veiculos-service # Navegar até o diretório do serviço
-          ./mvnw clean package # Compilar e criar o pacote
+          ./mvnw clean verify # ou 'mvn clean verify' se não usar o wrapper
 
       - name: Build Docker image
         run: |
