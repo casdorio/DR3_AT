@@ -50,6 +50,10 @@ jobs:
 
       - name: Wait for Deployment to be Ready
         run: |
+          # verifica deployment
+          kubectl get deployments
+          # verifica se o serviço está disponível
+          kubectl get services
           kubectl wait --for=condition=available --timeout=60s deployment/status-service
 
       - name: Expose the Service to Host Machine
