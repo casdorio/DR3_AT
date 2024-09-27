@@ -20,6 +20,9 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
+      - name: Dar permissão de execução ao mvnw
+        run: chmod +x status-service/mvnw
+
       - name: Build with Maven
         run: |
           cd catalogo-veiculos-service # Navegar até o diretório do serviço
