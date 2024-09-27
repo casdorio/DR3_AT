@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: status-deployment
+  name: status-service
 spec:
   replicas: 3
   selector:
@@ -17,27 +17,6 @@ spec:
         image: status-service:latest
         ports:
         - containerPort: 8080
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: status-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: status-service
-  template:
-    metadata:
-      labels:
-        app: status-service
-    spec:
-      containers:
-      - name: status-service
-        image: status-service:latest
-        ports:
-        - containerPort: 8080
-
 ---
 
 apiVersion: v1
